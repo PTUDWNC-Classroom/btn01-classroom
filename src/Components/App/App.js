@@ -10,19 +10,18 @@ import { styled } from "@mui/system"
 import { Container } from "@mui/material"
 
 import "./App.css"
-import MenuAppBar from "../MenuAppBar"
+import Homepage from "../Homepage/Homepage"
+import MenuAppBar from "../MenuAppBar/MenuAppBar"
 import TabsProvider from "../../context/TabsContext"
-import ClassDetails from "../../pages/ClassDetails"
-
-import ClassJoin from "../../pages/ClassJoin"
-import SignIn from "../../pages/SignIn"
-import SignUp from "../../pages/SignUp"
+import ClassDetails from "../Class/ClassDetails/ClassDetails"
+import ClassJoin from "../Class/ClassJoin/ClassJoin"
+import SignIn from "../User/SignIn"
+import SignUp from "../User/SignUp"
 //import SocialLogin from "../User/Social-SignIn/Google-Login-Button";
-import SocialLogout from "../Button/GoogleLogoutButton"
-import SocialLogin from "../Button/GoogleLoginButton"
-import Profile from "../../pages/Profile"
+import SocialLogout from "../User/Social-SignIn/Google-Logout-Button"
+import SocialLogin from "../User/Social-SignIn/Google-Login-Button"
+import Profile from "../User/Profile"
 //import formEmail from "../User/Email/Form-Email"
-import ClassList from "../../pages/ClassList"
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   marginTop: theme.spacing(3),
@@ -59,11 +58,11 @@ function App() {
                 if (localStorage.isSocialLogin) {
                   //console.log("Social app.js")
                   //console.log(JSON.parse(localStorage.isSocialLogin))
-                  return <ClassList newClassId={newClassId} />
+                  return <Homepage newClassId={newClassId} />
                 } else if (localStorage.isLogin) {
                   //console.log("Login app.js")
                   //console.log(JSON.parse(localStorage.isLogin))
-                  return <ClassList newClassId={newClassId} />
+                  return <Homepage newClassId={newClassId} />
                 } else {
                   return <Redirect to="/sign-in" />
                 }
