@@ -13,21 +13,19 @@ const ClassList = ({ newClassId }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [items, setItems] = useState([])
   const [anchorEl, setAnchorEl] = React.useState(null)
-  let _id = null;
+  let _id = null
   let user = null
   if (localStorage.isSocialLogin) {
     //console.log("GET localStorage SOCIAL LOGIN CLASS LIST")
     //console.log(JSON.parse(localStorage.isSocialLogin))
     user = JSON.parse(localStorage.isSocialLogin)
-    _id = user._id;
-  }
-  else if(localStorage.isLogin)
-  {
+    _id = user._id
+  } else if (localStorage.isLogin) {
     //console.log("GET localStorage LOGIN CLASS LIST")
     //console.log(JSON.parse(localStorage.isLogin))
     user = JSON.parse(localStorage.isLogin)
     //console.log(user);
-    _id = user._id;
+    _id = user._id
   }
   const handleClose = () => {
     setAnchorEl(null)
@@ -49,7 +47,7 @@ const ClassList = ({ newClassId }) => {
           }
         )
         //console.log("da response")
-        //console.log(response.data)
+        console.log(response.data)
         if (response) {
           setIsLoaded(true)
           setItems(response.data)
@@ -63,7 +61,7 @@ const ClassList = ({ newClassId }) => {
     }
 
     getClassList()
-  }, [newClassId,_id])
+  }, [newClassId, _id])
 
   if (error) {
     return (

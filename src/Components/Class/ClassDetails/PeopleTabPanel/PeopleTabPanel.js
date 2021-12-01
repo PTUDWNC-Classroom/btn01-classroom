@@ -88,11 +88,11 @@ export default function PeopleTabPanel({ value, index }) {
   const [openPopup, setOpenPopup] = useState(false)
 
   const handleSend = async (e) => {
-    console.log(itemInput)
+    //console.log(itemInput)
     e.preventDefault()
     //console.log("chan ta");
     let url = location.pathname.split("/")
-    console.log(url[url.length - 1])
+    //console.log(url[url.length - 1])
     //sendMailInviteLink
     const sended = await sendInviteLink(url[url.length - 1], itemInput)
     if (sended === true) {
@@ -119,7 +119,7 @@ export default function PeopleTabPanel({ value, index }) {
   }
 
   const handleInviteTeacher = async () => {
-    console.log(role)
+    //console.log(role)
     localStorage.setItem("inviteRole", "Teacher")
 
     setOpenPopup(true)

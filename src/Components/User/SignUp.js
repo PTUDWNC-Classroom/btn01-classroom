@@ -1,138 +1,140 @@
-import React, { useState } from "react";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useHistory } from 'react-router';
+import React, { useState } from "react"
+import Avatar from "@mui/material/Avatar"
+import Button from "@mui/material/Button"
+import CssBaseline from "@mui/material/CssBaseline"
+import TextField from "@mui/material/TextField"
+import Link from "@mui/material/Link"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import Typography from "@mui/material/Typography"
+import Container from "@mui/material/Container"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { useHistory } from "react-router"
 
-
-import sendUserInfoSignUp, { sendOtpValidEmail } from '../DataConnection/SignUpHandler';
-import { Dialog, DialogContent } from "@mui/material";
-import { BasicTextFields } from "./Email/Form-Email";
+import sendUserInfoSignUp, {
+  sendOtpValidEmail,
+} from "../DataConnection/SignUpHandler"
+import { Dialog, DialogContent } from "@mui/material"
+import { BasicTextFields } from "./Email/Form-Email"
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
-  );
+  )
 }
 
-const theme = createTheme();
+const theme = createTheme()
 
 export default function SignUp() {
-  const history = useHistory();
-  const [message,setMessage] = useState("Nhập email sai format hoặc bỏ trống !");
-  const [itemInput, setItemInput] = useState(null);
-  const [openPopup, setOpenPopup] = useState(false);
-  const [errorEmail, setErrorEmail] = useState(null);
-  const [errorUserName, setErrorUserName] = useState(null);
-  const [errorPassword, setErrorPassword] = useState(null);
-  const [userInfo, setUserInfo] = useState(
-    {
-      email: '',
-      password: '',
-      username: ''
-    });
+  const history = useHistory()
+  const [message, setMessage] = useState(
+    "Nhập email sai format hoặc bỏ trống !"
+  )
+  const [itemInput, setItemInput] = useState(null)
+  const [openPopup, setOpenPopup] = useState(false)
+  const [errorEmail, setErrorEmail] = useState(null)
+  const [errorUserName, setErrorUserName] = useState(null)
+  const [errorPassword, setErrorPassword] = useState(null)
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+    username: "",
+  })
 
   const handleSend = async (e) => {
-    console.log(userInfo);
-    e.preventDefault();
-    console.log(itemInput);
-    const OTP = itemInput;
-    const check = await sendOtpValidEmail(OTP, userInfo);
-    console.log(check);
-    
-    if(check === true)
-    {
-      setUserInfo(
-        {
-          email: '',
-          password: '',
-          username: ''
-        }
-      )
-      setOpenPopup(false);
-      alert("Đăng ký thành công !");
-      history.replace('/sign-in');
+    //console.log(userInfo);
+    e.preventDefault()
+    //console.log(itemInput);
+    const OTP = itemInput
+    const check = await sendOtpValidEmail(OTP, userInfo)
+    //console.log(check);
+
+    if (check === true) {
+      setUserInfo({
+        email: "",
+        password: "",
+        username: "",
+      })
+      setOpenPopup(false)
+      alert("Đăng ký thành công !")
+      history.replace("/sign-in")
     }
-   
+
     // userInfo =
     // {
     //   email: '',
     //   password: '',
     //   username: ''
     // };
-  };
+  }
 
   const handleCancel = (e) => {
-    e.preventDefault();
-    setOpenPopup(false);
+    e.preventDefault()
+    setOpenPopup(false)
   }
 
   const handleError = (error) => {
-    let email = error.email;
-    let username = error.username;
-    let password = error.password;
+    let email = error.email
+    let username = error.username
+    let password = error.password
 
-  
-    setErrorEmail(!email.match(/.+@.+/));
-    setErrorUserName((username !== "") ? false : true)
-    setErrorPassword((password !== "") ? false : true)
+    setErrorEmail(!email.match(/.+@.+/))
+    setErrorUserName(username !== "" ? false : true)
+    setErrorPassword(password !== "" ? false : true)
 
-    if (errorEmail === false && errorUserName === false && errorPassword === false) {
-      return false;
+    if (
+      errorEmail === false &&
+      errorUserName === false &&
+      errorPassword === false
+    ) {
+      return false
     }
-    return true;
+    return true
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    console.log("submit")
-    const data = new FormData(event.currentTarget);
+    //console.log("submit")
+    const data = new FormData(event.currentTarget)
 
-    const user =
-    {
-      email: data.get('email'),
-      password: data.get('password'),
-      username: data.get('username')
-    };
+    const user = {
+      email: data.get("email"),
+      password: data.get("password"),
+      username: data.get("username"),
+    }
 
-    setUserInfo(user);
+    setUserInfo(user)
 
     //sendUserInfoSignUp(userInfo);
 
     //console.log(handleError(userInfo));
     if (handleError(user) === false) {
-      console.log("handle")
-      const checkExistInData = await sendUserInfoSignUp(userInfo);
-      console.log("checkExist")
-      console.log(checkExistInData)
+      //console.log("handle")
+      const checkExistInData = await sendUserInfoSignUp(userInfo)
+      // console.log("checkExist")
+      //console.log(checkExistInData)
       if (checkExistInData === true) {
-        setOpenPopup(true);
+        setOpenPopup(true)
+      } else {
+        setMessage("Email đã được sử dụng hoặc không tồn tại!")
+        setErrorEmail(true)
       }
-      else
-      {
-        setMessage("Email đã được sử dụng hoặc không tồn tại!");
-        setErrorEmail(true);
-      }
-
     }
-
-  };
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -141,18 +143,23 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -164,7 +171,7 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                   //onChange={handleOnchange}
-                  helperText={errorEmail ?  message : ' '}
+                  helperText={errorEmail ? message : " "}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -176,7 +183,7 @@ export default function SignUp() {
                   label="User Name"
                   name="username"
                   autoComplete="username"
-                  helperText={errorUserName ? 'Không thể bỏ trống' : ' '}
+                  helperText={errorUserName ? "Không thể bỏ trống" : " "}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -189,7 +196,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="password"
-                  helperText={errorPassword ? 'Không thể bỏ trống' : ' '}
+                  helperText={errorPassword ? "Không thể bỏ trống" : " "}
                 />
               </Grid>
             </Grid>
@@ -210,8 +217,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Dialog open={openPopup}
-        >
+        <Dialog open={openPopup}>
           <DialogContent>
             <Typography>
               <b>Nhập mã xác thực</b>
@@ -221,13 +227,17 @@ export default function SignUp() {
                 itemInput={itemInput}
                 setItemInput={setItemInput}
               />
-              <Button type="cancel" onClick={handleCancel}>Cancel</Button>
-              <Button type="submit" onClick={handleSend}>Submit</Button>
+              <Button type="cancel" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button type="submit" onClick={handleSend}>
+                Submit
+              </Button>
             </form>
           </DialogContent>
         </Dialog>
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
-  );
+  )
 }
